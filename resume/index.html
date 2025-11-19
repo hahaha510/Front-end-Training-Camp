@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zhuChunJing - 个人简历</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 左侧导航 -->
+    <nav class="sidebar-nav">
+        <div class="nav-content">
+            <h3 class="nav-title">导航</h3>
+            <ul class="nav-list">
+                <li><a href="#header" class="nav-link active">个人信息</a></li>
+                <li><a href="#education" class="nav-link">教育背景</a></li>
+                <li><a href="#experience" class="nav-link">实习经历</a></li>
+                <li><a href="#projects" class="nav-link">项目经历</a></li>
+                <li><a href="#skills" class="nav-link">专业技能</a></li>
+                <li><a href="#evaluation" class="nav-link">自我评价</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <!-- 头部信息 -->
+            <header class="header" id="header">
+            <div class="header-left">
+                <h1 class="name">zhuChunJing</h1>
+                <h2 class="position">前端开发工程师</h2>
+                <div class="contact-info">
+                    <p><strong>电话：</strong>13333333333</p>
+                    <p><strong>邮箱：</strong><a href="mailto:13333333333@163.com">13333333333@163.com</a></p>
+                    <p><strong>年龄：</strong>23</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <img src="avatar.jpg" alt="个人照片" class="avatar">
+            </div>
+        </header>
+
+            <!-- 教育背景 -->
+            <section class="section" id="education">
+            <h3 class="section-title">教育背景</h3>
+            <div class="education-list">
+                <article class="education-item">
+                    <div class="edu-header">
+                        <h4>xxxx大学</h4>
+                        <span class="date">2024.09-2027.06</span>
+                    </div>
+                    <p class="degree">网络空间安全（硕士）</p>
+                </article>
+                <article class="education-item">
+                    <div class="edu-header">
+                        <h4>xxxx大学</h4>
+                        <span class="date">2020.09-2024.06</span>
+                    </div>
+                    <p class="degree">计算机科学与技术（本科）</p>
+                    <p class="achievement">英语六级：校优秀毕业生；校优秀学生二等奖学金(3次)；本科连读三年绩点前15%</p>
+                </article>
+            </div>
+        </section>
+
+            <!-- 实习经历 -->
+            <section class="section" id="experience">
+            <h3 class="section-title">实习经历</h3>
+            <article class="experience-item">
+                <div class="exp-header">
+                    <div>
+                        <h4>xxxx（杭州）有限公司</h4>
+                        <p class="position-title">前端开发实习生</p>
+                    </div>
+                    <span class="date">2025.06-2025.09</span>
+                </div>
+                <ul class="exp-duties">
+                    <li><strong>负责量化可视化平台全栈开发</strong></li>
+                    <li>1.使用 IndexedDB替换localStorage 对数据代理底层存储实现资源页面的前后切换、加快首屏渲染速度。</li>
+                    <li>2.通过动态创建 iframe 来避免大量嵌入了东方财富网的股票详情页面，保证了多资源的权威性和安全性。</li>
+                    <li>3.基于 Echarts 深度定制，开发了包含 K 线图、成交量柱状图、MA 均线和买卖点标记的股票图表组件；</li>
+                </ul>
+                <ul class="exp-duties">
+                    <li><strong>负责地理信息开发</strong></li>
+                   <li>1.运用 cursor 辅助编程完成了该本算法系统的监理项目开发（Cesium+Vue），调用后端接口获取数据，实现位置打点、绘制 3D 柱状图代表）、技术运输途径、无人机飞行路径、区域电子围栏等地理信息。</li>
+                </ul>
+            </article>
+        </section>
+
+            <!-- 项目经历 -->
+            <section class="section" id="projects">
+            <h3 class="section-title">项目经历</h3>
+            <div class="projects-list">
+                <article class="project-item">
+                    <div class="project-header">
+                        <div>
+                            <h4>AI PDF Note</h4>
+                            <p class="project-subtitle">个人项目</p>
+                            <p class="tech-stack"><strong>技术栈：</strong>React + Tailwind CSS + Shadcn + Nextjs + Vite + LangChain + convex + vercel</p>
+                        </div>
+                        <span class="date">2025.03-2025.06</span>
+                    </div>
+                    <div class="project-description">
+                        <p><strong>项目描述：</strong>AI PDF Note 是一款基于 AI 的智能 PDF 笔记应用，旨在提升用户对论文阅读的理解和效率。核心功能包括PDF智能解析、AI问答交互、笔记管理同步等，赋予生成等智能化操作。</p>
+                        <button class="toggle-btn" data-target="project-1">展开详情</button>
+                    </div>
+                    <ul class="project-details" id="project-1" style="display: none;">
+                        <li>集成 AI 的智能文档交互：依托 RAG (检索增强生成) 技术和大模型，深度整合 Google Gemini 大模型与 LangChain 工具链，实现对 PDF 内容对智能问答和提炼功能。</li>
+                        <li>用户协作与共享：构建多用户协作平台，用户可以共享笔记并接收页面通知，帮助用户了解页面高度应该的幕集图方案，减少用户的通知等待时间。</li>
+                        <li>性能优化：运用 next/dynamic 对 PdfViewer 和 TextEditor 等重型组件进行懒加载，将初始包体积减少 47%。同时结合 React.memo 和 useCallback 对富文本编辑器进行深度优化，减少不必要的组件重新渲染。</li>
+                        <li>部署：将前后端服务平台实现了项目的自动化 CI/CD 流程，每次代码提交都能触发发自动构建部署。</li>
+                    </ul>
+                </article>
+
+                <article class="project-item">
+                    <div class="project-header">
+                        <div>
+                            <h4>请假审批管理系统</h4>
+                            <p class="project-subtitle">个人项目</p>
+                            <p class="tech-stack"><strong>技术栈：</strong>Vue3 + Element Plus + Vite + Echarts + Koa+Mongodb + Mockjs</p>
+                        </div>
+                        <span class="date">2025.01-2025.02</span>
+                    </div>
+                    <div class="project-description">
+                        <p><strong>项目描述：</strong>该是用于企业员工的检查出请假情况的后台管理系统，提供了用户权限管理、用户请假审批、大文件上传、数据可视化等功能。</p>
+                        <button class="toggle-btn" data-target="project-2">展开详情</button>
+                    </div>
+                    <ul class="project-details" id="project-2" style="display: none;">
+                        <li>基于 JWT 实现 token 认证，设计权 Token 方案，管理 Access/refresh Token 实现无感刷新。</li>
+                        <li>实现最高效的文件上传机制，采用分片上传和作件上传机机束查询了大文件的上传性能，使用 sparkMD5 库计算整个文件的哈希，避免重复上传同一个文件；实现中实现断点续传，提升用户体验。</li>
+                        <li>对 axios 请求进行二次封装，添加请求拦截器统一添加 token 认证，响应拦截器错误捕获一处理。</li>
+                        <li>使用 VueRouter 实现路由守卫，基于角色动态注册路由，并结合是显现规则页面访问，实现 RABC 的权限管理。</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+            <!-- 专业技能 -->
+            <section class="section" id="skills">
+            <h3 class="section-title">专业技能</h3>
+            <ul class="skills-list">
+                <li>前端基础：熟练使用 H5/C3/ES6+及 TS；熟悉 Scss/Less 及 TailwindCSS。</li>
+                <li>框架生态：熟悉 Vue2/3、Pinia、VueRouter 等相关技术栈；熟悉 React、Hooks 等相关技术。</li>
+                <li>UI 和可视化：熟练使用 ElementPlus/AntDesign/Shadcn 等 UI 组件库；熟悉 Echarts 等可视化开发框架。</li>
+                <li>前端工程化：掌握 Webpack、Vite 打包工具；熟悉 Git 版本控制；了解 ESLint/Prettier 代码规范。</li>
+                <li>网络与存储：熟悉 Axios 请求及二次封装；理解 HTTP/HTTPS 协议及 TCP、UDP 等网络协议。</li>
+                <li>后端技术：熟悉 Next、Koa 的使用；了解 MySQL 和 Mongodb 数据库及基础的数据库文档 sql 语句。</li>
+                <li>AI 技术：理解 Agent、RAG、MCP 等概念，熟练使用 cursor、大模型型工具辅助开发。</li>
+            </ul>
+        </section>
+
+            <!-- 自我评价 -->
+            <section class="section" id="evaluation">
+            <h3 class="section-title">自我评价</h3>
+            <p class="self-evaluation">本人对前端技术有浓厚的兴趣，可长期坚持学习六个月及以上。Github: https://github.com/hahaha510</p>
+        </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
