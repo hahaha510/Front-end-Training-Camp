@@ -1,0 +1,371 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💬 实时聊天室</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 600px;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 25px;
+    }
+
+    .control-group {
+      margin-bottom: 20px;
+    }
+
+    .control-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #4a5568;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 14px;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    #connect {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    #connect:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+    }
+
+    #disconnect {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+    }
+
+    #disconnect:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(245, 87, 108, 0.5);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    #log {
+      height: 350px;
+      overflow-y: auto;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #f7fafc;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    #log::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #log::-webkit-scrollbar-track {
+      background: #edf2f7;
+      border-radius: 10px;
+    }
+
+    #log::-webkit-scrollbar-thumb {
+      background: #cbd5e0;
+      border-radius: 10px;
+    }
+
+    #log::-webkit-scrollbar-thumb:hover {
+      background: #a0aec0;
+    }
+
+    #log div {
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #log div:contains("[system]") {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      color: #92400e;
+    }
+
+    .send-area {
+      display: flex;
+      gap: 10px;
+    }
+
+    #text {
+      flex: 1;
+    }
+
+    #send {
+      background: linear-gradient(135deg, #34d399 0%, #059669 100%);
+      color: white;
+      padding: 12px 30px;
+      box-shadow: 0 4px 15px rgba(52, 211, 153, 0.4);
+      white-space: nowrap;
+    }
+
+    #send:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(52, 211, 153, 0.5);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    .status-connected {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .status-disconnected {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    @media (max-width: 640px) {
+      .control-row {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>💬 实时聊天室</h1>
+      <p>基于 WebSocket 的即时通讯</p>
+    </div>
+
+    <div class="content">
+      <div class="control-group">
+        <label>👤 您的用户 ID</label>
+        <div class="control-row">
+          <input id="myId" placeholder="输入您的用户名..." />
+          <button id="connect">🔌 连接</button>
+          <button id="disconnect" disabled>❌断开</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>📨 接收者 ID（留空则群发）</label>
+        <input id="to" placeholder="输入接收者 ID，或留空发送给所有人..." />
+      </div>
+
+      <div class="control-group">
+        <label>💭 消息记录</label>
+        <div id="log"></div>
+      </div>
+
+      <div class="control-group">
+        <label>✍️ 发送消息</label>
+        <div class="send-area">
+          <input id="text" placeholder="输入消息内容..." onkeypress="if(event.key==='Enter') document.getElementById('send').click()" />
+          <button id="send">📤 发送</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const log = (s, isSystem = false) => {
+      const d = document.createElement('div');
+      const time = new Date().toLocaleTimeString();
+      
+      if (isSystem) {
+        d.style.background = 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)';
+        d.style.color = '#92400e';
+        d.innerHTML = `<strong>🔔 ${time}</strong> · ${s}`;
+      } else {
+        d.textContent = `${time} · ${s}`;
+      }
+      
+      const logDiv = document.getElementById('log');
+      logDiv.appendChild(d);
+      logDiv.scrollTop = logDiv.scrollHeight;
+    };
+
+    let ws = null;
+    document.getElementById('connect').onclick = () => {
+      const id = document.getElementById('myId').value.trim();
+      if (!id) {
+        alert('⚠️ 请输入您的用户 ID');
+        return;
+      }
+      
+      ws = new WebSocket('ws://localhost:3000');
+      ws.onopen = () => {
+        log('✅ 已连接到服务器', true);
+        ws.send(JSON.stringify({ type: 'register', id }));
+        document.getElementById('connect').disabled = true;
+        document.getElementById('disconnect').disabled = false;
+      };
+      
+      ws.onmessage = (ev) => {
+        try {
+          const data = JSON.parse(ev.data);
+          if (data.type === 'system') {
+            log(data.text || JSON.stringify(data), true);
+          } else if (data.type === 'message') {
+            const from = data.from || '未知';
+            const text = data.text || '';
+            const to = data.to ? ` → ${data.to}` : ' → 所有人';
+            log(`💬 ${from}${to}: ${text}`);
+          } else {
+            log(JSON.stringify(data));
+          }
+        } catch (e) {
+          log('📨 ' + ev.data);
+        }
+      };
+      
+      ws.onclose = () => {
+        log('❌ 已断开连接', true);
+        document.getElementById('connect').disabled = false;
+        document.getElementById('disconnect').disabled = true;
+      };
+      
+      ws.onerror = (e) => {
+        log('⚠️ 连接错误: ' + (e.message || '未知错误'), true);
+      };
+    };
+
+    document.getElementById('disconnect').onclick = () => {
+      if (ws) {
+        ws.close();
+        ws = null;
+      }
+    };
+
+    document.getElementById('send').onclick = () => {
+      if (!ws || ws.readyState !== WebSocket.OPEN) {
+        alert('⚠️ 未连接到服务器，请先连接');
+        return;
+      }
+      
+      const text = document.getElementById('text').value.trim();
+      if (!text) {
+        alert('⚠️ 请输入消息内容');
+        return;
+      }
+      
+      const payload = {
+        type: 'message',
+        from: document.getElementById('myId').value,
+        to: (document.getElementById('to').value || undefined),
+        text: text
+      };
+      
+      ws.send(JSON.stringify(payload));
+      
+      // 显示自己发送的消息
+      const to = payload.to ? ` → ${payload.to}` : ' → 所有人';
+      log(`📤 我${to}: ${text}`);
+      
+      document.getElementById('text').value = '';
+    };
+  </script>
+</body>
+</html>
